@@ -19,6 +19,7 @@ var DEFAULT_SETTINGS = {
     propertyToSearch: "name",
     jsonContainer: null,
     contentType: "json",
+    clientSideCache: true,
 
     // Prepopulation settings
     prePopulate: null,
@@ -939,7 +940,7 @@ $.TokenList = function (input, url_or_data, settings) {
     function run_search(query) {
         var cache_key = query + computeURL();
         var cached_results = cache.get(cache_key);
-        if(cached_results) {
+        if(settings.clientSideCache && cached_results) {
             if ($.isFunction($(input).data("settings").onCachedResult)) {
               cached_results = $(input).data("settings").onCachedResult.call(hidden_input, cached_results);
             }
